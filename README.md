@@ -10,6 +10,7 @@ This tab serves as a list of URLs for various web apps. Clicking on the one of t
 # The Search Tab
 This tab provides a powerful tool for querying Active Directory. Users can search for information related to both users and groups, offering flexibility and detailed results.
 ## Search Types
+The search function is divided into three types. You can use the radio boxes to select one of the types to begin your search.
 ### Search Users
 This option allows you to search for specific users in Active
 How to Use:
