@@ -14,11 +14,23 @@ This tab provides a powerful tool for querying Active Directory. Users can searc
 This option allows you to search for specific users in Active
 How to Use:
 
-    Enter the user's SamAccountName in the "Keyword" text box.
-    Click the "Search" button.
-    View the results in the text box below, including user details and group memberships.
+    -Enter the user's SamAccountName in the "Keyword" text box
+    -Click the "Search" button
+    -View the results in the text box below, including user details and group memberships
 ### Search Groups
+This option enables you to search for Active Directory groups based on a partial match of their names.
+How to Use:
+
+    -Enter a name of the group in the "Keyword" text box. Keyword should be an extact match of the AD group you are looking for
+    -Click the "Search" button
+    -Explore the results in the text box, which includes group details and member information
 ### Wildcard
+This option searches for AD groups using wildcards, displaying only those with partial matches in their names.
+How to Use:
+
+    -Enter a partial name of the group in the "Keyword" text box
+    -Click the "Search" button
+    -Examine the results in the text box, which shows groups with partial name matches
 # The Export Tab
 # The Computers Tab
 # The Historical AD Groups Tab
