@@ -33,6 +33,18 @@ How to Use:
     -Click the "Search" button
     -Examine the results in the text box, which shows groups with partial name matches
 # The Export Tab
+This tab provides a convenient way to export search results to a CSV file. How to Use:
+
+    -Conduct a search using the "Search" tab
+    -Click on the "Export" tab
+    -Select the location where you want to save the CSV file
 # The Computers Tab
+This tab allows users to retrieve detailed information about a remote computer in the Active Directory
 # The Historical AD Groups Tab
+This tab allows users to generate a CSV file that is properly formated for restoring AD groups. How to Use:
+
+    -Enter historical AD group information into the text box
+    -Click the "Export" button
+    -Choose a location to save the CSV file
+
 
