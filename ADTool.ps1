@@ -10,7 +10,7 @@ $TabControl = New-Object System.Windows.Forms.TabControl
 $TabControl.Size = New-Object System.Drawing.Size(680, 440)
 $TabControl.Location = New-Object System.Drawing.Point(10, 10)
 
-# =-=-=-=-=-=-=-=-= Create "Links" tab =-=-=-=-=-=-=-=-=-=-=
+#region "Links"tab
 $LinksTab = New-Object System.Windows.Forms.TabPage
 $LinksTab.Text = "Links"
 
@@ -66,8 +66,9 @@ $TabControl.TabPages.Add($LinksTab)
 
 # Add the tab control to the form
 $Form.Controls.Add($TabControl)
+#endregion "Links"tab
 
-# =-=-=-=-=-=-=-=-= Create "Search" tab =-=-=-=-=-=-=-=-=-=-=
+#region "Search"tab
 $SearchTab = New-Object System.Windows.Forms.TabPage
 $SearchTab.Text = "Search"
 
@@ -193,8 +194,9 @@ $SearchTab.Controls.Add($SearchKeywordLabel)
 $SearchTab.Controls.Add($SearchKeywordTextBox)
 $SearchTab.Controls.Add($SearchButton)
 $SearchTab.Controls.Add($SearchResultTextBox)
+#endregion "Search"tab
 
-#  =-=-=-=-=-=-=- Create the tab for exporting search results to CSV =-=-=-=-=-=-=-=
+#region "Export"tab
 $ExportTab = New-Object System.Windows.Forms.TabPage
 $ExportTab.Text = "Export"
 
@@ -239,10 +241,11 @@ $TabControl.Controls.Add($ExportTab)
 
 # Add the tab control to the form
 $Form.Controls.Add($TabControl)
+#endregion "Export"tab
 
 
 
-# =-=-=-=-=-=-= Create "Computers" tab =-=-=-=-=-=-=-=
+#region "Computers"tab
 $ComputersTab = New-Object System.Windows.Forms.TabPage
 $ComputersTab.Text = "Computers"
 
@@ -319,13 +322,72 @@ $ComputersTab.Controls.Add($ComputerTextBox)
 $ComputersTab.Controls.Add($ComputerSearchButton)
 $ComputersTab.Controls.Add($ComputerResultTextBox)
 
+# Create button for displaying currently running processes
+$ShowProcessesButton = New-Object System.Windows.Forms.Button
+$ShowProcessesButton.Text = "Show Processes"
+$ShowProcessesButton.Width = 100  # Set the width to a suitable value
+$ShowProcessesButton.Location = New-Object System.Drawing.Point(500, 50)
+$ShowProcessesButton.Add_Click({
+    $ComputerName = $ComputerTextBox.Text
+
+    # Clear the text box before displaying the result
+    $ComputerResultTextBox.Clear()
+
+    if ($ComputerName) {
+        try {
+            $processes = Get-WmiObject Win32_Process -ComputerName $ComputerName
+
+            if ($processes) {
+                $ComputerResultTextBox.AppendText("Currently Running Processes on $ComputerName`r`n`r`n")
+                $processes | ForEach-Object {
+                    $ComputerResultTextBox.AppendText("Name: " + $_.Name + "`r`n")
+                    $ComputerResultTextBox.AppendText("Process ID: " + $_.ProcessId + "`r`n`r`n")
+                }
+            } else {
+                $ComputerResultTextBox.AppendText("No processes found on $ComputerName")
+            }
+        }
+        catch {
+            $ComputerResultTextBox.AppendText("Error: $_.Exception.Message")
+        }
+    } else {
+        $ComputerResultTextBox.AppendText("Please enter a computer name.")
+    }
+})
+
+# Add the button for displaying currently running processes
+$ComputersTab.Controls.Add($ShowProcessesButton)
+
+
+
+# Create button for remotely restarting the computer
+$RestartComputerButton = New-Object System.Windows.Forms.Button
+$RestartComputerButton.Text = "Restart Computer"
+$RestartComputerButton.Width = 120  # Set the width to a suitable value
+$RestartComputerButton.Location = New-Object System.Drawing.Point(500, 80)
+$RestartComputerButton.Add_Click({
+    $ComputerToRestart = $ComputerTextBox.Text
+
+    if ($ComputerToRestart) {
+        Restart-Computer -ComputerName $ComputerToRestart -Force
+    } else {
+        [System.Windows.Forms.MessageBox]::Show("Please enter a computer name.", "Error", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
+    }
+})
+
+# Add the button for remotely restarting the computer
+$ComputersTab.Controls.Add($RestartComputerButton)
+
+
+
 # Add the Computers tab to the tab control
 $TabControl.TabPages.Add($ComputersTab)
 
 # Add the tab control to the form
 $Form.Controls.Add($TabControl)
+#endregion "Computers"tab
 
-# =-=-=-=-= Create "Historical AD Groups" tab =-=-=-=-=-=
+#region "Historical AD Groups"tab
 
 # Create "Historical AD Groups" tab
 $HistoricalGroupsTab = New-Object System.Windows.Forms.TabPage
@@ -370,7 +432,7 @@ $HistoricalGroupsTab.Controls.Add($ExportHistoricalButton)
 
 # Add the "Historical AD Groups" tab to the tab control
 $TabControl.TabPages.Add($HistoricalGroupsTab)
-
+#endregion "Historical AD Groups"tab
 
 
 
