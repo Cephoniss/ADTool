@@ -25,6 +25,7 @@ $Links = @(
     "Sec Admin Docs", "\\shares-cifs.nyumc.org\groups\nyumcit\NYUSECADM\Sec admin Documentation - USE THIS",
     "AD Manager", "https://adm.nyumc.org:8443/",
     "AirWatch", "https://aw.nyumc.org/AirWatch",
+    "Intune", "https://intune.microsoft.com",
     "AMS Tools", "https://amstools.nyumc.org/",
     "Citrix Director", "https://ctxcdcpdirxd001.nyumc.org/Director",
     "CyberArk", "https://pvwa.nyumc.org/PasswordVault/v10/logon/radius",
@@ -223,10 +224,19 @@ $ExportButton.Add_Click({
             [System.Windows.Forms.MessageBox]::Show("No results to export.", "Export Search Results", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
             return
         }
+
+        # Add header 'name' and the cleaned-up data
+        $exportData = @()
+        $exportData += "name" # CSV Header
         
-        $exportData = $SearchResultTextBox.Lines[2..($SearchResultTextBox.Lines.Count - 1)] | ForEach-Object { [PSCustomObject]@{ name = $_ } }
-        $exportData | Export-Csv -Path $filePath -NoTypeInformation -Encoding UTF8
-        
+        # Extract each line from search result, remove quotes and add them as CSV rows
+        $exportData += $SearchResultTextBox.Lines[2..($SearchResultTextBox.Lines.Count - 1)] | ForEach-Object {
+            $_.Trim().Replace('"', '') # Clean up any quotes or spaces
+        }
+
+        # Output the data as CSV with proper encoding
+        $exportData | Out-File -FilePath $filePath -Encoding UTF8
+
         [System.Windows.Forms.MessageBox]::Show("Search results exported successfully.", "Export Search Results", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
     }
 })
