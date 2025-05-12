@@ -22,20 +22,20 @@ $LinksTable.AutoSize = $true
 
 # Add links to the table
 $Links = @(
-    "Sec Admin Docs", "\\shares-cifs.nyumc.org\groups\nyumcit\NYUSECADM\Sec admin Documentation - USE THIS",
-    "AD Manager", "https://adm.nyumc.org:8443/",
-    "AirWatch", "https://aw.nyumc.org/AirWatch",
-    "Intune", "https://intune.microsoft.com",
-    "AMS Tools", "https://amstools.nyumc.org/",
-    "Citrix Director", "https://ctxcdcpdirxd001.nyumc.org/Director",
-    "CyberArk", "https://pvwa.nyumc.org/PasswordVault/v10/logon/radius",
-    "Duo Security", "https://admin-a5409281.duosecurity.com",
-    "ISM", "https://nyu-amc.ivanticloud.com",
-    "Peoplesoft HCM", "https://peoplesofthcm.nyumc.org/psc/hrprod/EMPLOYEE/HRMS/c/NUI_FRAMEWORK.PT_LANDINGPAGE.GBL?NPSLT=Y",
-    "Routing Chart", "https://servicecatalog.nyumc.org/DesksideRouting/Pages/RoutingChart.aspx",
-    "Sailpoint", "https://identity.nyumc.org",   
-    "VPN Termination", "https://vpn-termination.nyumc.org",
-    "Webex Admin", "https://nyumc.webex.com/wbxadmin/login.do?&needFilter=false&siteurl=nyumc"    
+    "Sec Admin Docs", "Add Link HERE",
+    "AD Manager", "Add Link HERE",
+    "AirWatch", "Add Link HERE",
+    "Intune", "hAdd Link HERE",
+    "AMS Tools", "Add Link HERE",
+    "Citrix Director", "Add Link HERE",
+    "CyberArk", "Add Link HERE",
+    "Duo Security", "Add Link HERE",
+    "ISM", "Add Link HERE",
+    "Peoplesoft HCM", "Add Link HERE",
+    "Routing Chart", "Add Link HERE",
+    "Sailpoint", "Add Link HERE",   
+    "VPN Termination", "Add Link HERE",
+    "Webex Admin", "Add Link HERE"    
     
     )
 
@@ -67,6 +67,7 @@ $TabControl.TabPages.Add($LinksTab)
 
 # Add the tab control to the form
 $Form.Controls.Add($TabControl)
+
 #endregion "Links"tab
 
 #region "Search"tab
@@ -444,7 +445,92 @@ $HistoricalGroupsTab.Controls.Add($ExportHistoricalButton)
 $TabControl.TabPages.Add($HistoricalGroupsTab)
 #endregion "Historical AD Groups"tab
 
+#region "Misc" tab
 
+# Create the "Misc." tab
+$MiscTab = New-Object System.Windows.Forms.TabPage
+$MiscTab.Text = "Misc."
+
+# === Counter Section ===
+
+# Label to display the counter value
+$CounterLabel = New-Object System.Windows.Forms.Label
+$CounterLabel.Text = "0"
+$CounterLabel.Font = New-Object System.Drawing.Font("Arial", 14, [System.Drawing.FontStyle]::Bold)
+$CounterLabel.Location = New-Object System.Drawing.Point(160, 20)
+$CounterLabel.AutoSize = $true
+
+# "+" Button
+$PlusButton = New-Object System.Windows.Forms.Button
+$PlusButton.Text = "+"
+$PlusButton.Location = New-Object System.Drawing.Point(100, 15)
+$PlusButton.Size = New-Object System.Drawing.Size(40, 30)
+$PlusButton.Add_Click({
+    $CounterLabel.Text = [int]$CounterLabel.Text + 1
+})
+
+# "-" Button
+$MinusButton = New-Object System.Windows.Forms.Button
+$MinusButton.Text = "-"
+$MinusButton.Location = New-Object System.Drawing.Point(200, 15)
+$MinusButton.Size = New-Object System.Drawing.Size(40, 30)
+$MinusButton.Add_Click({
+    $CounterLabel.Text = [int]$CounterLabel.Text - 1
+})
+
+# "Reset" Button
+$ResetButton = New-Object System.Windows.Forms.Button
+$ResetButton.Text = "Reset"
+$ResetButton.Location = New-Object System.Drawing.Point(250, 15)
+$ResetButton.Size = New-Object System.Drawing.Size(60, 30)
+$ResetButton.Add_Click({
+    $CounterLabel.Text = "0"
+})
+
+# === Notes Section ===
+
+# "Notes" label
+$NotesLabel = New-Object System.Windows.Forms.Label
+$NotesLabel.Text = "Notes:"
+$NotesLabel.Font = New-Object System.Drawing.Font("Arial", 10, [System.Drawing.FontStyle]::Bold)
+$NotesLabel.Location = New-Object System.Drawing.Point(10, 70)
+$NotesLabel.AutoSize = $true
+
+# Notes text box (multi-line)
+$NotesTextBox = New-Object System.Windows.Forms.TextBox
+$NotesTextBox.Multiline = $true
+$NotesTextBox.Size = New-Object System.Drawing.Size(300, 100)
+$NotesTextBox.Location = New-Object System.Drawing.Point(10, 90)
+
+# === Example Text Labels ===
+
+# Helpdesk Phone
+$ExampleText1 = New-Object System.Windows.Forms.Label
+$ExampleText1.Text = "Helpdesk: 866 276 1892"
+$ExampleText1.Location = New-Object System.Drawing.Point(10, 200)
+$ExampleText1.AutoSize = $true
+
+# HR Phone
+$ExampleText2 = New-Object System.Windows.Forms.Label
+$ExampleText2.Text = "HR: 212 404 3787"
+$ExampleText2.Location = New-Object System.Drawing.Point(10, 230)
+$ExampleText2.AutoSize = $true
+
+# Add controls to the Misc tab
+$MiscTab.Controls.Add($CounterLabel)
+$MiscTab.Controls.Add($PlusButton)
+$MiscTab.Controls.Add($MinusButton)
+$MiscTab.Controls.Add($ResetButton)
+$MiscTab.Controls.Add($NotesLabel)
+$MiscTab.Controls.Add($NotesTextBox)
+$MiscTab.Controls.Add($ExampleText1)
+$MiscTab.Controls.Add($ExampleText2)
+
+# Add the Misc tab to the tab control
+$TabControl.TabPages.Add($MiscTab)
+
+
+#endregion
 
 
 # Show the form
